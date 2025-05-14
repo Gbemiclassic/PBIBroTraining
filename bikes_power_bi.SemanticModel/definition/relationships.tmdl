@@ -1,0 +1,5 @@
+relationship d222f2c2-0d9d-42f5-aa7b-ae4d4bf941c3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: bikes.date
+	toColumn: LocalDateTable_6b688b8b-1eee-4ec7-afdb-8e4ba0319d4b.Date
+

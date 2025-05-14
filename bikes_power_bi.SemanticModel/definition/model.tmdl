@@ -1,0 +1,22 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-CA
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["bikes"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.131.1203.0 (24.07)
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table bikes
+ref table DateTableTemplate_781ed78b-8989-4096-85ce-673daf9d912d
+ref table LocalDateTable_6b688b8b-1eee-4ec7-afdb-8e4ba0319d4b
+
+ref cultureInfo en-US
+

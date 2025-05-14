@@ -1,0 +1,184 @@
+table bikes
+	lineageTag: f40aa25c-78bd-4733-bc2d-00259b072f9c
+
+	column date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e9c8fbd1-bb79-4187-9429-368d7740fb93
+		summarizeBy: none
+		sourceColumn: date
+
+		variation Variation
+			isDefault
+			relationship: d222f2c2-0d9d-42f5-aa7b-ae4d4bf941c3
+			defaultHierarchy: LocalDateTable_6b688b8b-1eee-4ec7-afdb-8e4ba0319d4b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column season
+		dataType: int64
+		formatString: 0
+		lineageTag: 2f6ccca2-a85f-47d5-aa9e-9bcf0c0b548f
+		summarizeBy: sum
+		sourceColumn: season
+
+		annotation SummarizationSetBy = Automatic
+
+	column yr
+		dataType: int64
+		formatString: 0
+		lineageTag: 5db31f23-98fb-441b-ae7f-564a3458e3c1
+		summarizeBy: sum
+		sourceColumn: yr
+
+		annotation SummarizationSetBy = Automatic
+
+	column mnth
+		dataType: int64
+		formatString: 0
+		lineageTag: 2ae1526c-893e-4e32-a801-8c168a7b80ff
+		summarizeBy: sum
+		sourceColumn: mnth
+
+		annotation SummarizationSetBy = Automatic
+
+	column hr
+		dataType: int64
+		formatString: 0
+		lineageTag: 39544484-8974-43e7-87f5-ae6983fc2aca
+		summarizeBy: sum
+		sourceColumn: hr
+
+		annotation SummarizationSetBy = Automatic
+
+	column holiday
+		dataType: int64
+		formatString: 0
+		lineageTag: d135dfee-f445-431d-8f43-a8090bac69bb
+		summarizeBy: sum
+		sourceColumn: holiday
+
+		annotation SummarizationSetBy = Automatic
+
+	column weekday
+		dataType: int64
+		formatString: 0
+		lineageTag: 6a27717b-1126-4948-b303-2b07ee5a23fa
+		summarizeBy: sum
+		sourceColumn: weekday
+
+		annotation SummarizationSetBy = Automatic
+
+	column workingday
+		dataType: int64
+		formatString: 0
+		lineageTag: 626e7d92-c84f-4f8b-9077-17a2a89285d9
+		summarizeBy: sum
+		sourceColumn: workingday
+
+		annotation SummarizationSetBy = Automatic
+
+	column weathersit
+		dataType: int64
+		formatString: 0
+		lineageTag: b068dc6b-e12c-4359-92c8-64c4c101e35b
+		summarizeBy: sum
+		sourceColumn: weathersit
+
+		annotation SummarizationSetBy = Automatic
+
+	column temp
+		dataType: double
+		lineageTag: 67da4bd7-a6ec-483d-a4e1-7335222fd0d7
+		summarizeBy: sum
+		sourceColumn: temp
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column atemp
+		dataType: double
+		lineageTag: a3466520-849a-4a99-af8d-8470a3026849
+		summarizeBy: sum
+		sourceColumn: atemp
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column hum
+		dataType: double
+		lineageTag: dafd2e37-ca20-4eef-8e01-e7fbe6140742
+		summarizeBy: sum
+		sourceColumn: hum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column windspeed
+		dataType: double
+		lineageTag: 13add959-258c-470b-9afb-37b1a6d88b75
+		summarizeBy: sum
+		sourceColumn: windspeed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column rider_type
+		dataType: string
+		lineageTag: 443fdfd7-ab8c-4427-9bb8-56bd9ad07e1c
+		summarizeBy: none
+		sourceColumn: rider_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column riders
+		dataType: int64
+		formatString: 0
+		lineageTag: d350c807-f7c9-4da1-9d3a-d04b821a212f
+		summarizeBy: sum
+		sourceColumn: riders
+
+		annotation SummarizationSetBy = Automatic
+
+	column price
+		dataType: double
+		lineageTag: f64948b3-1e41-46ee-88cc-aaad1f9a0be9
+		summarizeBy: sum
+		sourceColumn: price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column COGS
+		dataType: double
+		lineageTag: 450f1a85-8762-49e1-ae42-9a7b3ee58d10
+		summarizeBy: sum
+		sourceColumn: COGS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition bikes = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\gbemi\Desktop\Power BI\Power_BI_Source_Control\PBIBroTraining\bikes.csv"),[Delimiter=",", Columns=17, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Renamed Columns" = Table.RenameColumns(#"Promoted Headers",{{"dteday", "date"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"season", Int64.Type}, {"yr", Int64.Type}, {"mnth", Int64.Type}, {"hr", Int64.Type}, {"holiday", Int64.Type}, {"weekday", Int64.Type}, {"workingday", Int64.Type}, {"weathersit", Int64.Type}, {"temp", type number}, {"atemp", type number}, {"hum", type number}, {"windspeed", type number}, {"rider_type", type text}, {"riders", Int64.Type}, {"price", type number}, {"COGS", type number}}),
+				    #"Changed Type with Locale" = Table.TransformColumnTypes(#"Changed Type", {{"date", type date}}, "bin-NG")
+				in
+				    #"Changed Type with Locale"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
